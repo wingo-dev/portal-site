@@ -25,11 +25,13 @@
                                 @php($no = 0)
                                 @foreach($products as $product)
                                     @php($no++)
-                                    <tr>
-                                        <th scope="row">{{ $no }}</th>
-                                        <td>{{ $product->licensed_pn }}</td>
-                                        <td><a href="{{ asset('download/'.$product->org_name.'/'.$product->licensed_pn) }}" class="btn btn-success" download="true">Download</a></td>
-                                    </tr>
+                                    @for($i=0;$i<count($product);$i++)
+                                        <tr>
+                                            <th scope="row">{{ $no }}</th>
+                                            <td>{{ $product[$i]->licensed_pn }}</td>
+                                            <td><a href="{{ asset('download/'.$product[$i]->org_name.'/'.$product[$i]->licensed_pn) }}" class="btn btn-success" download="true">Download</a></td>
+                                        </tr>
+                                    @endfor
                                 @endforeach
                                 </tbody>
                             </table>

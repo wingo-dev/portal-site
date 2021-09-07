@@ -5,6 +5,11 @@
         <div class="container-fluid mt-xl-50 mt-sm-30 mt-15">
             <section class="hk-sec-wrapper">
                 <h5 class="hk-sec-title">Add Organization</h5>
+                @if(Session::has('message'))
+                    <div class="alert alert-inv alert-inv-danger" role="alert">
+                        {{ Session::get('message') }}
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-sm">
                         <form action="{{ route('admin.store_org') }}" method="post">

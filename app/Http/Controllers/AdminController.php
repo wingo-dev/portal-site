@@ -20,12 +20,13 @@ class AdminController extends Controller
         $this->middleware('admin');
     }
     public function index(){
-        $users = User::where('is_admin', 0)->get();
-        return view('admin.dashboard', compact('users'));
+        $orgs = ORG::all();
+        return view('admin.dashboard', compact('orgs'));
     }
     public function viewAddForm(){
         $orgs = Org::all();
-        return view('admin.add_customer', compact('orgs'));
+        $users = User::all();
+        return view('admin.add_customer', compact('orgs', 'users'));
     }
     public function storeCustomer(Request $request){
         $data = $request->all();
@@ -37,17 +38,31 @@ class AdminController extends Controller
         $customer->is_admin = 0;
         $customer->save();
 //        save user org
-        $org_user = new UserOrg();
-        $org_user->user_id = $customer->id;
-        $org_user->org_id = $data['org'];
-        $org_user->save();
+
+        foreach($data['org'] as $org){
+            $org_user = new UserOrg();
+            $org_user->user_id = $customer->id;
+            $org_user->org_id = $org;
+            $org_user->save();
+        }
         return back();
     }
+    public function deleteCustomer($id){
+        User::where('id', $id)->delete();
+        return back();
+    }
+//    org part
     public function viewOrg(){
         $orgs = ORG::all();
         return view('admin.add_org', compact('orgs'));
     }
     public function storeOrg(Request $request){
+        $old_orgs = ORG::all();
+        foreach ($old_orgs as $old_org){
+            if($old_org->org_name == strtolower($request->org_name)){
+                return back()->with('message', 'The organization already exists.');
+            }
+        }
         $org = new ORG();
         $org->org_name = $request->org_name;
         $org->save();
@@ -70,13 +85,24 @@ class AdminController extends Controller
 //        dd($uploadedProducts);
         return view('admin.add_product', compact('orgs', 'uploadedProducts'));
     }
+    public function viewProductDetail($id){
+        $product = Product::where('id', $id)->get();
+        return view('admin.product_detail', compact('product'));
+    }
     public function storeProduct(Request $request){
         $dir = ORG::where('id', $request->org)->get();
-        $fileName = time().'.'.$request->product_file->extension();
+        $fileName = $request->product_file->getClientOriginalName();
+        $p_names = Product::all();
+        foreach ($p_names as $p_name){
+            if($p_name->licensed_pn == $fileName){
+                return back()->with('message', 'The product name already exist.');
+            }
+        }
         $request->product_file->move(public_path('download/'.$dir[0]->org_name), $fileName);
         $product = new Product();
         $product->licensed_pn = $fileName;
         $product->licensed_pv ='';
+        $product->description = $request->product_description;
         $product->save();
 
         $orgPtr = new OrgPrt();
@@ -87,7 +113,8 @@ class AdminController extends Controller
     }
     public function deleteProduct($id)
     {
-        OrgPrt::where('id', $id)->delete();
+        OrgPrt::where('product_id', $id)->delete();
+        Product::where('id', $id)->delete();
         return back();
     }
 }

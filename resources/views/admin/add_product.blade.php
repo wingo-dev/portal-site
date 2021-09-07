@@ -5,6 +5,11 @@
         <div class="container-fluid mt-xl-50 mt-sm-30 mt-15">
             <section class="hk-sec-wrapper">
                 <h5 class="hk-sec-title">Add Product</h5>
+                @if(Session::has('message'))
+                    <div class="alert alert-inv alert-inv-danger" role="alert">
+                        {{ Session::get('message') }}
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-sm">
                         <form action="{{ route('admin.store_product') }}" method="post" enctype="multipart/form-data">
@@ -20,6 +25,9 @@
                                             <option value="{{$org->id}}">{{ $org->org_name }}</option>
                                         @endforeach
                                     </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <textarea class="form-control mt-15" name="product_description" placeholder="Product description"></textarea>
                                 </div>
                                 <div class="col-md-6">
                                     <button type="submit" class="btn btn-primary mt-15">upload</button>
@@ -38,7 +46,7 @@
                                 <table class="table mb-0">
                                     <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th>No</th>
                                         <th>Organization Name</th>
                                         <th>Uploaded files</th>
                                         <th>Action</th>
@@ -56,8 +64,10 @@
                                             @else
                                                 <td></td>
                                             @endif
-                                            <td>{{ $product[$i]->licensed_pn }}</td>
-                                            <td><a href="{{ route('admin.delete_product', $product[$i]->id) }}"><span class="badge badge-danger">Delete</span></a></td>
+                                                <td><a href="{{ route('admin.product_detail', $product[$i]->product_id) }}">{{ $product[$i]->licensed_pn }}</a></td>
+                                            <td>
+                                                <a href="{{ route('admin.delete_product', $product[$i]->product_id) }}"><span class="badge badge-danger">Delete</span></a>
+                                            </td>
                                         </tr>
                                         @endfor
                                     @endforeach

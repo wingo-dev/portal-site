@@ -9,8 +9,8 @@
     <meta name="description" content="A responsive bootstrap 4 admin dashboard template by hencework"/>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="favicon.ico">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" href="{{asset('favicon.ico')}}" type="image/x-icon">
 
     <!-- vector map CSS -->
     <link href="{{ asset('vendors/vectormap/jquery-jvectormap-2.0.3.css') }}" rel="stylesheet" type="text/css"/>
@@ -18,10 +18,8 @@
     <!-- Toggles CSS -->
     <link href="{{ asset('vendors/jquery-toggles/css/toggles.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendors/jquery-toggles/css/themes/toggles-light.css') }}" rel="stylesheet" type="text/css">
-
-    <!-- Toastr CSS -->
-    <link href="{{ asset('vendors/jquery-toast-plugin/dist/jquery.toast.min.css') }}" rel="stylesheet" type="text/css">
-
+    <!-- select2 CSS -->
+    <link href="{{asset('vendors/select2/dist/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- Custom CSS -->
     <link href="{{ asset('dist/css/style.css') }}" rel="stylesheet" type="text/css">
 </head>
@@ -98,16 +96,16 @@
                                 <span class="nav-link-text">Dashboard</span>
                             </a>
                         </li>
-                        <li class="nav-item {{ Request::is('admin/add-customer*') ? 'active' : ''}}">
-                            <a class="nav-link link-with-badge" href="{{route('admin.view_add_form')}}">
-                                <i class="ion ion-ios-person-add"></i>
-                                <span class="nav-link-text">Add Customers</span>
-                            </a>
-                        </li>
                         <li class="nav-item {{ Request::is('admin/add-org*') ? 'active' : ''}}">
                             <a class="nav-link link-with-badge" href="{{route('admin.view_org_form')}}">
                                 <i class="ion ion-ios-apps"></i>
                                 <span class="nav-link-text">Add Organization</span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{ Request::is('admin/add-customer*') ? 'active' : ''}}">
+                            <a class="nav-link link-with-badge" href="{{route('admin.view_add_form')}}">
+                                <i class="ion ion-ios-person-add"></i>
+                                <span class="nav-link-text">Add Customers</span>
                             </a>
                         </li>
                         <li class="nav-item  {{ Request::is('admin/add-product*') ? 'active' : '' }}">
@@ -156,7 +154,9 @@
 
 <!-- Toastr JS -->
 {{--<script src="{{ asset('vendors/jquery-toast-plugin/dist/jquery.toast.min.js') }}"></script>--}}
-
+<!-- Select2 JavaScript -->
+<script src="{{asset('vendors/select2/dist/js/select2.full.min.js')}}"></script>
+<script src="{{asset('dist/js/select2-data.js')}}"></script>
 <!-- Apex JavaScript -->
 <script src="{{ asset('vendors/apexcharts/dist/apexcharts.min.js') }}"></script>
 <script src="{{ asset('dist/js/irregular-data-series.js') }}"></script>

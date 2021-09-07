@@ -19,9 +19,13 @@ class UserController extends Controller
 
     }
     public function index(){
-        $org = UserOrg::where('user_id', Auth::user()->id)->get('org_id');
-        $products = OrgPrt::join('products', 'products.id', 'org_prts.product_id')
-                            ->join('orgs', 'orgs.id', 'org_prts.org_id')->where('org_id', $org[0]->org_id)->get();
+        $orgs = UserOrg::where('user_id', Auth::user()->id)->get('org_id');
+        $products = [];
+        foreach ($orgs as $org){
+            $product = OrgPrt::join('products', 'products.id', 'org_prts.product_id')
+                ->join('orgs', 'orgs.id', 'org_prts.org_id')->where('org_id', $org->org_id)->get();
+            array_push($products, $product);
+        }
 //        dd($products);
         return view('user.dashboard', compact('products'));
     }

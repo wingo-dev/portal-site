@@ -25,12 +25,14 @@ Route::group(['prefix' => 'admin'], function(){
     Route::get('/dashboard', 'AdminController@index')->name('admin.dashboard');
     Route::get('/add-customer', 'AdminController@viewAddForm')->name('admin.view_add_form');
     Route::post('/add-customer', 'AdminController@storeCustomer')->name('admin.store_customer');
+    Route::get('/delete-customer/{id}', 'AdminController@deleteCustomer')->name('admin.delete_customer');
     //    org part
     Route::get('/add-organization', 'AdminController@viewOrg')->name('admin.view_org_form');
     Route::post('/add-organization', 'AdminController@storeOrg')->name('admin.store_org');
     Route::get('/delete-org/{id}', 'AdminController@deleteOrg')->name('admin.delete_org');
     //    product part
     Route::get('/add-product', 'AdminController@viewProduct')->name('admin.view_product');
+    Route::get('/view-product-detail/{id}', 'AdminController@viewProductDetail')->name('admin.product_detail');
     Route::post('/add-product', 'AdminController@storeProduct')->name('admin.store_product');
     Route::get('/delete-product/{id}', 'AdminController@deleteProduct')->name('admin.delete_product');
 

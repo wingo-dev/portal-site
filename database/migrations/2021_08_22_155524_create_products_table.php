@@ -17,6 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('licensed_pn')->nullerble();
             $table->string('licensed_pv')->nullerble();
+            $table->text('description')->nullerble();
             $table->timestamps();
         });
     }

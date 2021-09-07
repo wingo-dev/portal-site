@@ -4,45 +4,40 @@
         <!-- Container -->
         <div class="container-fluid mt-xl-50 mt-sm-30 mt-15">
             <section class="hk-sec-wrapper">
-                <h5 class="hk-sec-title">Registered Customers</h5>
-            </section>
-        </div>
-        <!-- /Container -->
-        <section class="hk-sec-wrapper">
-            <h5 class="hk-sec-title">Download directory & uploaded files</h5>
-            <div class="row">
-                <div class="col-sm">
-                    <div class="table-wrap">
-                        <div class="table-responsive">
-                            <table class="table mb-0">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Email</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @php($no=0)
-                                @foreach($users as $user)
-                                    @php($no++)
+                <h5 class="hk-sec-title">Organization lists & Download Directory</h5>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-wrap">
+                            <div class="table-responsive">
+                                <table class="table mb-0">
+                                    <thead>
                                     <tr>
-                                        <th scope="row">{{ $no }}</th>
-                                        <td>{{ $user->first_name }}</td>
-                                        <td>{{ $user->last_name }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td><a href=""><span class="badge badge-danger">Delete</span></a></td>
+                                        <th>#</th>
+                                        <th>Organization Name</th>
+                                        <th>Directory</th>
+                                        <th>Action</th>
                                     </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    @php($no = 0)
+                                    @foreach($orgs as $org)
+                                        @php($no++)
+                                        <tr>
+                                            <th scope="row">{{$no}}</th>
+                                            <td>{{$org->org_name}}</td>
+                                            <td>{{$org->org_name}}</td>
+                                            <td><a href="{{route('admin.delete_org', $org->id)}}"><span class="badge badge-danger">Delete</span></a></td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
+        <!-- /Container -->
         <!-- Footer -->
         <div class="hk-footer-wrap container">
             <footer class="footer">
