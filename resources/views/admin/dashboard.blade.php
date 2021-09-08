@@ -4,6 +4,13 @@
         <!-- Container -->
         <div class="container-fluid mt-xl-50 mt-sm-30 mt-15">
             <section class="hk-sec-wrapper">
+                <div class="row">
+                    <div class="col-md-6"><a href="{{route('admin.view_product')}}" class="btn btn-primary">Add product</a></div>
+                    <div class="col-md-6"><a href="{{route('admin.view_add_form')}}" class="btn btn-primary">Add customer</a></div>
+                </div>
+            </section>
+            <section class="hk-sec-wrapper">
+
                 <h5 class="hk-sec-title">Organization lists & Download Directory</h5>
                 <div class="row">
                     <div class="col-sm">
